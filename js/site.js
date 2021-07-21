@@ -98,5 +98,4 @@ function displayFizzBuzz(fizzBuzzResults) {
 
         tableBody.appendChild(tableRow);
     }
-
 }

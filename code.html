@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
     <head>
-        <title>App Name: A Coding Project by Tyler Strel</title>
+        <title>Fizz Buzz: A Coding Project by Tyler Strel</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,7 +27,7 @@
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="/img/TS_Mark.svg" class="d-inline-block align-text-top" alt="APP LOGO" height="24"> APP NAME</a>
+            <a class="navbar-brand" href="#"><img src="/img/TS_Mark.svg" class="d-inline-block align-text-top" alt="APP LOGO" height="24"> Fizz Buzz</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -44,7 +44,7 @@
                         <a class="nav-link active" aria-current="page" href="code.html">The Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" target="_blank" href="#">Git Repo</a>
+                        <a class="nav-link" target="_blank" href="https://github.com/TylerStrel/FizzBuzz">Git Repo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" target="_blank" href="http://tylerstrel.com/">About</a>
@@ -57,22 +57,133 @@
     <!-- Main -->
     <main class="flex-shrink-0">
         <div class="container py-5 px-5 mt-5">
-            <h2 class="border-1 border-bottom border-dark">The Code for APP NAME.</h2>
+            <h2 class="border-1 border-bottom border-dark">The Code for Fizz Buzz.</h2>
             <div class="row row-cols-1 row-cols-lg-2">
                 <div class="col-lg-8">
                     <pre class="line-numbers">
                         <code class="language-javascript">
-                            // Call Hello World
-                            function helloWorld() {
-                                alert("Hello World");
+                            // Get the values enter by the user
+                            function getFizzBuzzValues() {
+
+                                let fizzValue = document.getElementById("fizzValue").value;
+                                let buzzValue = document.getElementById("buzzValue").value;
+
+                                // Parse into Ints
+                                fizzValue = parseInt(fizzValue);
+                                buzzValue = parseInt(buzzValue);
+
+                                // Check if values are ints
+                                if (Number.isInteger(fizzValue) && Number.isInteger(buzzValue)) {
+
+                                    // Get the fizz buzz resluts
+                                    let fizzBuzzResults = fizzBuzzIt(fizzValue, buzzValue);
+                                    
+                                    // Display the resluts in a table
+                                    displayFizzBuzz(fizzBuzzResults);
+                                }
+                                else {
+
+                                    // If valid int is not entered then alert the user
+                                    alert("You must enter integers.");
+                                }
+
+                            }
+
+                            function fizzBuzzIt(fizzValue, buzzValue) {
+
+                                // Create an empty array to hold the results
+                                let fizzBuzzResults = [];
+
+                                // Loop 1 - 100
+                                for (let index = 1; index <= 100; index++) {
+                                    
+                                    // Create an empty string to hold the results to be added to the array
+                                    let tempFizzBuzzResult = "";
+
+                                    // Check for Fizz 
+                                    if (index % fizzValue == 0) {
+
+                                        tempFizzBuzzResult += "Fizz";
+                                    }
+                                    
+                                    // Check for Buzz
+                                    if (index % buzzValue == 0) {
+
+                                        tempFizzBuzzResult += "Buzz";
+                                    }
+                                    
+                                    // Check if Fizz or Buzz were added, if not then supply the number to the string instead
+                                    if (tempFizzBuzzResult.length == 0) {
+
+                                        tempFizzBuzzResult += index.toString();
+                                    }
+
+                                    // Push results to the array
+                                    fizzBuzzResults.push(tempFizzBuzzResult);
+                                }
+
+                                // Return to calling location
+                                return fizzBuzzResults;
+                            }
+
+                            // Display reslults to the end user
+                            function displayFizzBuzz(fizzBuzzResults) {
+
+                                // Get the location in HTML where to place the table
+                                let tableBody = document.getElementById("results");
+
+                                // Get the created table template
+                                let templateRow = document.getElementById("fbTemplate");
+
+                                // Clear the table
+                                tableBody.innerHTML = "";
+
+                                // Loop 
+                                for (let i = 0; i < fizzBuzzResults.length; i += 5) {
+                                    
+                                    let tableRow = document.importNode(templateRow.content, true);
+                                    
+                                    let rowCols = tableRow.querySelectorAll("td");
+                                    
+                                    rowCols[0].classList.add(fizzBuzzResults[i]);
+                                    rowCols[0].textContent = fizzBuzzResults[i];
+                                    
+                                    rowCols[1].classList.add(fizzBuzzResults[i+1]);
+                                    rowCols[1].textContent = fizzBuzzResults[i+1];
+                                    
+                                    rowCols[2].classList.add(fizzBuzzResults[i+2]);
+                                    rowCols[2].textContent = fizzBuzzResults[i+2];
+                                    
+                                    rowCols[3].classList.add(fizzBuzzResults[i+3]);
+                                    rowCols[3].textContent = fizzBuzzResults[i+3];
+                                    
+                                    rowCols[4].classList.add(fizzBuzzResults[i+4]);
+                                    rowCols[4].textContent = fizzBuzzResults[i+4];
+
+                                    tableBody.appendChild(tableRow);
+                                }
                             }
                         </code>
                     </pre>
                 </div>
                 <div class="col-lg-4">
-                    <p>The Code is structed in one function.</p>
-                    <h5>Hello World</h5>
-                    <p>Hello World is a function that displays an alert with message of "Hello World".</p>
+                    <p>The Code is structed in 3 functions, <strong>getFizzBuzzValues()</strong> gets the values entred by the user (Default 3 and 5).
+                    Next <strong>fizzBuzzIt()</strong> then takes the entered values and calculates FizzBuzz. Lastly <strong>displayFizzBuzz()</strong>
+                    shows the results to the end user.</p>
+                    <h5>getFizzBuzzValues()</h5>
+                    <p>This function first retreives the entered values from the page, those values then get parsed into ints. Next the values are checked
+                        to ensure they are valid ints. If they are valid then the are passed to <strong>fizzBuzzIt()</strong>, then an array is returned then gets
+                        passed <strong>displayFizzBuzz()</strong> where it is added to a table and displayed to the user.</p>
+                    <h5>fizzBuzzIt()</h5>
+                    <p>This function takes 2 ints as arguments, the first int is the Fizz value and the 2nd is the Buzz value. The function then creates
+                        an empty array to store the results of FizzBuzz. After that a for loop is ran, inside the for loop is a temporary string to hold the results for the current pass of the loop.
+                        The loop goes from 1 - 100, each pass checking for Fizz Buzz on each pass. Fizz Buzz is determined by checking if the current index is a multiple of either the Fizz or Buzz value or both.
+                        If the index is a multiple then the term "Fizz", "Buzz" or "FizzBuzz" is added to the temporary string and then added to the results array.
+                        Lastly the results are returned to the calling location.</p>
+                    <h5>displayFizzBuzz()</h5>
+                    <p>This function takes 1 argument of an array, in the case the fizzBuzzResults are passed to the function. First the functions gets the nessary
+                        elements from the page via their ids. Next the template table is retreived and cleared. Once the table is cleared a for loop is ran filling data 
+                        into the table in 5 entries per row.</p>
                 </div>
             </div>
         </div>
