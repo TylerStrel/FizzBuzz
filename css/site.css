@@ -9,6 +9,19 @@ body {
     color: var(--dark-color);
 }
 
+.Fizz {
+    color: green;
+}
+
+.Buzz {
+    color: blue;
+}
+
+.FizzBuzz {
+    font-weight: bold;
+    color: red;
+}
+
 nav {
     background-color: var(--dark-color);
 }
